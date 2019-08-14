@@ -1,0 +1,44 @@
+<html>
+
+<body>
+
+    <div id="output">
+
+    </div>
+
+
+    <script>
+
+        var midiAccess = null;
+        navigator.requestMIDIAccess().then(onMidiAccessSuccess, onMidiAccessFailure);
+
+        function onMidiAccessSuccess(access) {
+            midiAccess = access;
+
+            var inputs = midiAccess.inputs;
+            var inputIterators = inputs.values();
+
+            var firstInput = inputIterators.next().value;
+
+            if (!firstInput) return;
+            firstInput.onmidimessage = handleMidiMessage;
+        }
+
+        function onMidiAccessFailure(error) {
+            console.log('Oops. Something were wrong with requestMIDIAccess', error.code);
+        }
+
+        function handleMidiMessage(e) {
+            // if (e.data[0] !== 0x90) return;
+            console.log(e.data);
+            var data = document.createElement("pre");
+            data.innerText = e.data;
+            document.querySelector("#output").append(data);
+            data.scrollIntoView();
+        }
+
+    </script>
+
+</body>
+
+</html>
