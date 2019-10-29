@@ -55,14 +55,18 @@ function createHandleMidiMessage(output: WebMidi.MIDIOutput) {
 
     const red = ~~(Math.random() * 4);
     const green = ~~(Math.random() * 4);
-    if (buttonId === 104) {
-      for (let x = 0; x < 8; x += 1) {
-        for (let y = 0; y < 8; x += 1) {
-          output.send([144, xy2i(x, y), color(0, 0)]);
+    try {
+      if (buttonId === 104) {
+        for (let x = 0; x < 8; x += 1) {
+          for (let y = 0; y < 8; x += 1) {
+            output.send([144, xy2i(x, y), color(0, 0)]);
+          }
         }
+      } else {
+        output.send([144, buttonId, color(red, green)]);
       }
-    } else {
-      output.send([144, buttonId, color(red, green)]);
+    } catch {
+      //
     }
   };
 }
