@@ -1,7 +1,11 @@
 {
   "extends": [
     "airbnb",
-    "react-app"
+    "react-app",
+    "prettier"
+  ],
+  "plugins": [
+    "prettier"
   ],
   "settings": {
     "import/resolver": {
@@ -16,6 +20,7 @@
     }
   },
   "rules": {
+    "indent": [2, 2, { "SwitchCase": 1 }],
     "quotes": [
       2,
       "double",
@@ -30,6 +35,13 @@
           ".jsx",
           ".tsx"
         ]
+      }
+    ],
+    "prettier/prettier": [
+      2,
+      {
+        "printWidth": 100,
+        "arrowParens": "always"
       }
     ]
   }
