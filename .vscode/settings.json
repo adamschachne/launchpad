@@ -13,4 +13,6 @@
       "autoFix": true
     }
   ],
+  "eslint.enable": true,
+  // "typescript.validate.enable": true
 }
