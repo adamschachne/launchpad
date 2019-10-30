@@ -55,26 +55,41 @@ function createHandleMidiMessage(output: WebMidi.MIDIOutput) {
 
     const red = ~~(Math.random() * 4);
     const green = ~~(Math.random() * 4);
-    if (buttonId === 104) {
-      for (let x = 0; x < 8; x += 1) {
-        for (let y = 0; y < 8; x += 1) {
-          output.send([144, xy2i(x, y), color(0, 0)]);
+    try {
+      if (buttonId === 104) {
+        for (let x = 0; x < 8; x += 1) {
+          for (let y = 0; y < 8; x += 1) {
+            output.send([144, xy2i(x, y), color(0, 0)]);
+          }
         }
+      } else {
+        output.send([144, buttonId, color(red, green)]);
       }
-    } else {
-      output.send([144, buttonId, color(red, green)]);
+    } catch {
+      //
     }
   };
 }
 
-window.navigator.requestMIDIAccess().then(onMidiAccessSuccess, onMidiAccessFailure);
+interface State {
+  output: WebMidi.MIDIOutput;
+  input: WebMidi.MIDIInput;
+}
 
-const App: React.FC = () => (
-  <div className="App">
-    <header className="App-header">
-      <img src={logo} className="App-logo" alt="logo" />
-    </header>
-  </div>
-);
+class App extends React.Component<any, State> {
+  componentDidMount() {
+    window.navigator.requestMIDIAccess().then(onMidiAccessSuccess, onMidiAccessFailure);
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <header className="App-header">
+          <img src={logo} className="App-logo" alt="logo" />
+        </header>
+      </div>
+    );
+  }
+}
 
 export default App;
