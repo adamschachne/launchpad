@@ -12,6 +12,5 @@
       "language": "typescriptreact",
       "autoFix": true
     }
-  ],
-  "eslint.enable": true
+  ]
 }
